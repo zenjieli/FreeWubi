@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Fcitx5 under GDB",
+            "type": "cppdbg",
+            "request": "launch",
+            "preLaunchTask": "Build Fcitx5 Plugin (Debug)",
+            "program": "/usr/bin/fcitx5",
+            "args": [
+                "-r",
+                "--verbose",
+                "*=5"
+            ],
+            "cwd": "${workspaceFolder}/fcitx5-plugin",
+            "environment": [
+                {
+                    "name": "FCITX_ADDON_DIRS",
+                    "value": "/usr/lib/x86_64-linux-gnu/fcitx5:/home/zli/.local/lib/fcitx5"
+                }
+            ],
+            "MIMode": "gdb",
+            "miDebuggerPath": "${workspaceFolder}/.vscode/gdb_wrapper.sh"
+        }
+    ]
+}

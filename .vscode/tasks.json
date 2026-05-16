@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Fcitx5 Plugin (Debug)",
+            "type": "shell",
+            "command": "cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && make && make install",
+            "options": {
+                "cwd": "${workspaceFolder}/fcitx5-plugin/build"
+            },
+            "group": "build",
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Deploy Fcitx5 Plugin (Release)",
+            "type": "shell",
+            "command": "cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release && make && make install && fcitx5 -r -d",
+            "options": {
+                "cwd": "${workspaceFolder}/fcitx5-plugin/build"
+            },
+            "problemMatcher": "$gcc",
+            "group": "build"
+        },
+        {
+            "label": "Run C++ Tests",
+            "type": "shell",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && cmake --build . && ctest --output-on-failure",
+            "options": {
+                "cwd": "${workspaceFolder}/fcitx5-plugin/build"
+            },
+            "group": "test",
+            "problemMatcher": "$gcc"
+        }
+    ]
+}

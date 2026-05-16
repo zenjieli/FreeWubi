@@ -1,0 +1,8 @@
+[InputMethod]
+Name=FreeWubi
+Name[zh_CN]=五笔
+Icon=fcitx-wubi
+Label=五
+LangCode=zh_CN
+Addon=freewubi
+Configurable=True

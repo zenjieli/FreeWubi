@@ -1,0 +1,8 @@
+[Addon]
+Name=FreeWubi
+Category=InputMethod
+Library=freewubi
+Type=SharedLibrary
+OnDemand=True
+Configurable=True
+Version=0.1.0
