@@ -139,6 +139,22 @@ Multiple pronunciations for the same character appear as separate lines.
 
 ---
 
+## Supported Platforms
+
+FreeWubi runs on Linux with Fcitx5. Supported distributions:
+
+| Distro | Minimum Version |
+|---|---|
+| Ubuntu | 22.04 |
+| Debian | 12 |
+| Fedora | 38 |
+| Arch Linux | rolling |
+| openSUSE | Leap 15.5 / Tumbleweed |
+
+Any distribution that ships Fcitx5 and GCC 12+ should work.
+
+---
+
 ## Installation
 
 ### Install dev dependencies (one-time)

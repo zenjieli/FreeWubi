@@ -70,7 +70,7 @@ Engine logic is fully testable without Fcitx5 via the `IEngineOutput` interface.
 
 ## Conventions
 
-- C++17, camelCase methods, `kPrefix` for constants, `_` suffix for member variables
+- C++20, camelCase methods, `kPrefix` for constants, `_` suffix for member variables
 - Configurable keysyms are stored as `uint32_t` in engine, convertible to char via `static_cast<char>(sym)` for buffer prefixes
 - Custom phrases are stored as `code → [phrase, ...]` mapping; `computePhraseCode()` auto-deduces wubi code from phrase text
 - All text is UTF-8 `std::string`; dictionary lookup returns UTF-8 characters/phrases
