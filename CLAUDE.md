@@ -18,11 +18,6 @@ cd build && ctest --output-on-failure             # run via CTest
 cmake --install build                            # install to ~/.local
 ```
 
-Python dictionary tests (from repo root):
-```bash
-uv run pytest
-```
-
 Run a single test case: `./build/tests/test_engine "Literal mode: Enter commits"`
 (run via CTest: `ctest --test-command "./tests/test_engine \"Literal mode: Enter commits\""`)
 
@@ -70,7 +65,38 @@ Engine logic is fully testable without Fcitx5 via the `IEngineOutput` interface.
 
 ## Conventions
 
-- C++20, camelCase methods, `kPrefix` for constants, `_` suffix for member variables
+- C++20
 - Configurable keysyms are stored as `uint32_t` in engine, convertible to char via `static_cast<char>(sym)` for buffer prefixes
 - Custom phrases are stored as `code → [phrase, ...]` mapping; `computePhraseCode()` auto-deduces wubi code from phrase text
 - All text is UTF-8 `std::string`; dictionary lookup returns UTF-8 characters/phrases
+
+### Memory safety
+
+No raw `new`/`delete`. Use `std::make_unique`/`std::make_shared` for ownership.
+Raw pointers are acceptable only for non-owning observation (e.g., Fcitx5 API types like
+`fcitx::Instance*`). Prefer references over raw pointers when null is not a valid value.
+
+### Code style
+
+Enforced by `.clang-format` (Google style, 120 columns). **Before committing, run `clang-format -i` on every `.cpp`/`.h` you changed** (from `fcitx5-plugin/`: `clang-format -i <files>`). CI runs `clang-format --dry-run --Werror` on every tracked `.cpp`/`.h` and fails the build on unformatted code. clang-format covers **formatting only**; naming is convention (below).
+
+### Naming
+
+Follows the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) naming rules, spelled out here so there's nothing to argue over:
+
+| Element | Rule | Example |
+|---|---|---|
+| Files | lowercase + underscores (`.cpp`/`.h`) | `engine_logic.cpp` |
+| Types — class/struct/enum/alias | CapWords, no underscores | `EngineLogic`, `Modifiers` |
+| Functions / methods | camelCase *(deviation)* | `processKey`, `pageSize()` |
+| Variables — locals, params | snake_case | `page_offset`, `text` |
+| Class data members | snake_case + trailing `_` | `dict_`, `pageSize_` |
+| Struct data members | plain snake_case | `slashBuffer` |
+| Constants & enumerators | `k` + CapWords | `kMaxCodeLen`, `kNone`, `kBracketLeft` |
+| Namespaces | lowercase | `keys` |
+| `keys::` keysym constants | CapWords *(deviation)* | `keys::Control_L` |
+| Macros | UPPER_SNAKE_CASE | (not currently used; `#pragma once` for guards) |
+
+Two deliberate deviations from Google — **do not "fix" these**:
+- **Functions/methods are camelCase** (`processKey`), not Google's CapWords (`ProcessKey`).
+- **`keys::` keysym constants stay CapWords** (`keys::Control_L`), not `k`+CapWords, because they mirror the X11 keysym names they map to (`XK_Control_L`).

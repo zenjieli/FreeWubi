@@ -4,13 +4,16 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/fcitx5-plugin",
+                "/usr/include/Fcitx5/Config",
+                "/usr/include/Fcitx5/Core",
+                "/usr/include/Fcitx5/Utils",
                 "${workspaceFolder}/fcitx5-plugin/build/_deps/catch2-src/src/catch2/..",
                 "${workspaceFolder}/fcitx5-plugin/build/_deps/catch2-build/generated-includes"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",
             "cStandard": "c17",
-            "cppStandard": "c++17",
+            "cppStandard": "c++20",
             "intelliSenseMode": "linux-gcc-x64",
             "compileCommands": "${workspaceFolder}/fcitx5-plugin/build/compile_commands.json"
         }

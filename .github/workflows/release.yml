@@ -1,0 +1,52 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Fcitx5 dev packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libfcitx5core-dev libfcitx5config-dev libfcitx5utils-dev \
+            extra-cmake-modules build-essential cmake
+
+      - name: Build
+        run: |
+          cd fcitx5-plugin
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install
+          cmake --install build
+
+      - name: Package
+        run: |
+          cd $GITHUB_WORKSPACE/install
+          tar czf $GITHUB_WORKSPACE/freewubi-${GITHUB_REF_NAME}-linux-x86_64.tar.gz \
+            lib/fcitx5/freewubi.so \
+            share/fcitx5/addon/freewubi.conf \
+            share/fcitx5/inputmethod/freewubi.conf \
+            share/fcitx5/data/
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: freewubi-${{ github.ref_name }}-linux-x86_64.tar.gz
+          body: |
+            ## Installation
+
+            ```bash
+            tar xzf freewubi-${{ github.ref_name }}-linux-x86_64.tar.gz -C ~/.local
+            ```
+
+            ## Requirements
+
+            - Linux x86_64 with glibc 2.35+ (Ubuntu 22.04, Debian 12, Fedora 36+, Arch, openSUSE Leap 15.5+)
+            - Fcitx5 installed
+
+            If your distro is older, [build from source](../#installation) instead.
