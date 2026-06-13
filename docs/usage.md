@@ -1,3 +1,5 @@
+[**English**](usage.md) | [中文](usage.zh-CN.md)
+
 # Usage Guide
 
 ## Wubi Input

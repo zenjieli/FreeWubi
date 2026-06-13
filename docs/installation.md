@@ -1,3 +1,5 @@
+[**English**](installation.md) | [中文](installation.zh-CN.md)
+
 # Installation
 
 ## Install from GitHub Release

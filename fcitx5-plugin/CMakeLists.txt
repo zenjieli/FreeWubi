@@ -27,7 +27,8 @@ find_path(FCITX_SYSTEM_ADDON_DIR
           /usr/lib/fcitx5
     NO_DEFAULT_PATH)
 if(NOT FCITX_SYSTEM_ADDON_DIR)
-    message(FATAL_ERROR "Cannot find system fcitx5 addon directory")
+    message(STATUS "System fcitx5 addon directory not found, using default /usr/lib/x86_64-linux-gnu/fcitx5")
+    set(FCITX_SYSTEM_ADDON_DIR "/usr/lib/x86_64-linux-gnu/fcitx5")
 endif()
 
 # User-local addon directory

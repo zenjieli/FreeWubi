@@ -16,7 +16,7 @@
             "environment": [
                 {
                     "name": "FCITX_ADDON_DIRS",
-                    "value": "/usr/lib/x86_64-linux-gnu/fcitx5:/home/zli/.local/lib/fcitx5"
+                    "value": "/usr/lib/x86_64-linux-gnu/fcitx5:${env:HOME}/.local/lib/fcitx5"
                 }
             ],
             "MIMode": "gdb",
