@@ -278,6 +278,24 @@ TEST_CASE_METHOD(EngineFixture, "Chinese punctuation: period") {
   REQUIRE(output.commits.back() == "\xe3\x80\x82");  // 。
 }
 
+TEST_CASE_METHOD(EngineFixture, "Decimal point after a digit stays ASCII") {
+  bool consumed = feed(keys::_1);
+  REQUIRE_FALSE(consumed);  // digit passes through literally, e.g. "1"
+
+  consumed = feed(keys::Period);
+  REQUIRE_FALSE(consumed);  // period also passes through as ASCII '.', not 。
+  REQUIRE(output.commits.empty());
+}
+
+TEST_CASE_METHOD(EngineFixture, "Period resumes Chinese punctuation after a non-digit key") {
+  feed(keys::_1);
+  feed(keys::Comma);  // an intervening non-digit key breaks the digit/period adjacency
+
+  bool consumed = feed(keys::Period);
+  REQUIRE(consumed);
+  REQUIRE(output.commits.back() == "\xe3\x80\x82");  // 。
+}
+
 TEST_CASE_METHOD(EngineFixture, "Smart quotes: double-quote alternates") {
   feed(keys::Quotedbl);
   REQUIRE(output.commits.back() == "\xe2\x80\x9c");  // "

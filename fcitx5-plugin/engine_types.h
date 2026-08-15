@@ -99,6 +99,7 @@ struct EngineState {
   bool rareMode = false;
   std::string lastCommit;  // last text committed via normal wubi input
   int pageOffset = 0;      // candidate list page offset
+  bool lastCharWasDigit = false;  // true if the previous key produced a literal digit on screen
 };
 
 // --- Candidate data passed to the output layer ---

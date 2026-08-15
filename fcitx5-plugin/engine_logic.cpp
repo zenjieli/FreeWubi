@@ -21,6 +21,9 @@ EngineLogic::EngineLogic(WubiDict& dict, WubiDict& dict_common, PinyinDict& piny
     : dict_(dict), dict_common_(dict_common), pinyin_(pinyin) {}
 
 bool EngineLogic::processKey(const KeyInput& input, EngineState* state, IEngineOutput* out) {
+  bool prevCharWasDigit = state->lastCharWasDigit;
+  state->lastCharWasDigit = false;
+
   // Right Ctrl toggles English/Chinese mode
   if (input.sym == keys::Control_R) {
     state->englishMode = !state->englishMode;
@@ -431,6 +434,17 @@ bool EngineLogic::processKey(const KeyInput& input, EngineState* state, IEngineO
       }
       return true;
     }
+    // Not consumed as a candidate selector: the digit will pass through as
+    // literal text, so remember it for the decimal-point check below.
+    if (selectIdx >= 0 && state->code.empty()) {
+      state->lastCharWasDigit = true;
+    }
+  }
+
+  // Period right after a digit: keep it as an ASCII decimal point (e.g. "1.5")
+  // instead of the Chinese full stop, even while composing Chinese text.
+  if (input.sym == keys::Period && prevCharWasDigit) {
+    return false;
   }
 
   // Punctuation keys
