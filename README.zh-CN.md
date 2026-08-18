@@ -37,45 +37,25 @@ FreeWubi 是一款简单易用的 Linux 五笔 86 输入法 —— 适合快速�
 
 ## 快速开始
 
-### 1. 安装 Fcitx5（如尚未安装）
+### 1. 运行安装脚本
 
 ```bash
-sudo apt install -y fcitx5 fcitx5-chinese-addons \
-  fcitx5-frontend-gtk3 fcitx5-frontend-gtk4 \
-  fcitx5-frontend-qt5 fcitx5-config-qt im-config
-
-im-config -n fcitx5
+git clone https://github.com/zenjieli/FreeWubi.git
+cd FreeWubi
+./install.sh
 ```
 
-注销并重新登录。
+脚本会检查系统是否满足运行条件，在 Fcitx5 缺失时自动安装（使用 `sudo` 前会先
+询问），下载最新版本，并把 Fcitx5 指向插件目录。可以安全地重复运行。
 
-### 2. 下载并安装 FreeWubi
-
-从 [Releases](https://github.com/zli/FreeWubi/releases) 页面下载最新的压缩包并解压：
-
-```bash
-tar xzf freewubi-v0.1.0-linux-x86_64.tar.gz -C ~/.local
-```
-
-### 3. 告诉 Fcitx5 插件的位置
-
-Fcitx5 默认不会搜索 `~/.local/lib/fcitx5/` 目录。需要创建或更新 `~/.xinputrc`：
-
-```bash
-cat > ~/.xinputrc << 'EOF'
-export FCITX_ADDON_DIRS=/usr/lib/x86_64-linux-gnu/fcitx5:$HOME/.local/lib/fcitx5
-run_im fcitx5
-EOF
-```
-
-### 4. 启用 FreeWubi
+### 2. 启用 FreeWubi
 
 1. 运行 `fcitx5-configtool`
 2. 点击 **添加输入法** → 搜索 **FreeWubi** → 添加
 3. 使用 `Ctrl+Space` 切换到 FreeWubi
 4. 按下 `a` —— 应该能看到候选词，如 `1.工 2.戈`
 
-> 更多详情、故障排除和从源码构建，请参阅[安装指南](docs/installation.zh-CN.md)。
+> 想用手动步骤，或需要从源码构建？请参阅[安装指南](docs/installation.zh-CN.md)。
 
 ## 文档
 
@@ -90,7 +70,7 @@ FreeWubi 采用三层架构（Fcitx5 适配层 → 引擎逻辑 → 字典），
 
 ```bash
 # 克隆并构建
-git clone https://github.com/zli/FreeWubi.git
+git clone https://github.com/zenjieli/FreeWubi.git
 cd FreeWubi/fcitx5-plugin
 cmake -B build -DBUILD_TESTING=ON -DCMAKE_BUILD_TYPE=Debug
 cmake --build build

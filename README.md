@@ -49,48 +49,27 @@ lookup:
 
 ## Get Started
 
-### 1. Install Fcitx5 (if not already installed)
+### 1. Run the install script
 
 ```bash
-sudo apt install -y fcitx5 fcitx5-chinese-addons \
-  fcitx5-frontend-gtk3 fcitx5-frontend-gtk4 \
-  fcitx5-frontend-qt5 fcitx5-config-qt im-config
-
-im-config -n fcitx5
+git clone https://github.com/zenjieli/FreeWubi.git
+cd FreeWubi
+./install.sh
 ```
 
-Log out and back in.
+It checks that your system can run FreeWubi, installs Fcitx5 if it's missing
+(asking before it uses `sudo`), downloads the latest release, and points
+Fcitx5 at the plugin. Safe to re-run.
 
-### 2. Download and install FreeWubi
-
-Grab the latest tarball from the [Releases](https://github.com/zli/FreeWubi/releases)
-page and extract it:
-
-```bash
-tar xzf freewubi-v0.1.0-linux-x86_64.tar.gz -C ~/.local
-```
-
-### 3. Tell Fcitx5 where to find the plugin
-
-Fcitx5 does not search `~/.local/lib/fcitx5/` by default. Create or update
-`~/.xinputrc`:
-
-```bash
-cat > ~/.xinputrc << 'EOF'
-export FCITX_ADDON_DIRS=/usr/lib/x86_64-linux-gnu/fcitx5:$HOME/.local/lib/fcitx5
-run_im fcitx5
-EOF
-```
-
-### 4. Enable FreeWubi
+### 2. Enable FreeWubi
 
 1. Run `fcitx5-configtool`
 2. Click **Add Input Method** → search for **FreeWubi** → add it
 3. Switch to FreeWubi with `Ctrl+Space`
 4. Press `a` — you should see candidates like `1.工 2.戈`
 
-> See the [Installation Guide](docs/installation.md) for more details,
-> troubleshooting, and building from source.
+> Prefer manual steps, or need to build from source? See the
+> [Installation Guide](docs/installation.md).
 
 ## Documentation
 
@@ -106,7 +85,7 @@ dictionaries) so the core logic is fully testable without Fcitx5.
 
 ```bash
 # Clone and build
-git clone https://github.com/zli/FreeWubi.git
+git clone https://github.com/zenjieli/FreeWubi.git
 cd FreeWubi/fcitx5-plugin
 cmake -B build -DBUILD_TESTING=ON -DCMAKE_BUILD_TYPE=Debug
 cmake --build build

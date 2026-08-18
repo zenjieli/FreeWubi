@@ -2,9 +2,32 @@
 
 # Installation
 
+## Quick install (recommended)
+
+```bash
+git clone https://github.com/zenjieli/FreeWubi.git
+cd FreeWubi
+./install.sh
+```
+
+`install.sh` runs through this whole page for you: it checks your OS,
+architecture, and glibc version; installs Fcitx5 via `apt` if it's missing
+(asking for confirmation before it uses `sudo`, and before it changes your
+default input framework); downloads the latest release; extracts it to
+`~/.local`; and adds `FCITX_ADDON_DIRS` to `~/.xinputrc` (backing up the file
+first if it already exists). It's safe to re-run — it detects and skips steps
+that are already done, and asks before overwriting an existing install.
+
+It only automates the `apt`-based path; on Fedora/Arch/openSUSE it will tell
+you to install Fcitx5 yourself, then continue from there. The last step —
+adding FreeWubi as an active input method in `fcitx5-configtool` — is a GUI
+action and always manual; see [Verify](#verify) below.
+
+If it doesn't fit your setup, use the manual steps below instead.
+
 ## Install from GitHub Release
 
-Pre-built binaries are available on the [Releases](https://github.com/zli/FreeWubi/releases) page.
+Pre-built binaries are available on the [Releases](https://github.com/zenjieli/FreeWubi/releases) page.
 
 1. Download the latest `freewubi-v*-linux-x86_64.tar.gz`
 2. Extract to your home directory:

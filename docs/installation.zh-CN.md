@@ -2,9 +2,30 @@
 
 # 安装
 
+## 快速安装（推荐）
+
+```bash
+git clone https://github.com/zenjieli/FreeWubi.git
+cd FreeWubi
+./install.sh
+```
+
+`install.sh` 会自动完成本页的大部分步骤：检查操作系统、架构和 glibc 版本；如果
+未安装 Fcitx5，通过 `apt` 安装（使用 `sudo` 或更改默认输入法框架前都会先询问确
+认）；下载最新版本；解压到 `~/.local`；并把 `FCITX_ADDON_DIRS` 写入
+`~/.xinputrc`（如果该文件已存在，会先备份）。脚本可以安全地重复运行——已完成的
+步骤会自动跳过，覆盖已有安装前也会先询问。
+
+它只自动化了基于 `apt` 的流程；在 Fedora / Arch / openSUSE 上，脚本会提示你自
+行安装 Fcitx5，然后继续后续步骤。最后一步——在 `fcitx5-configtool` 中把
+FreeWubi 添加为启用的输入法——是图形界面操作，始终需要手动完成，参见下面的
+[验证](#验证)。
+
+如果这个脚本不适合你的环境，可以改用下面的手动步骤。
+
 ## 从 GitHub Release 安装
 
-预编译二进制文件可在 [Releases](https://github.com/zli/FreeWubi/releases) 页面获取。
+预编译二进制文件可在 [Releases](https://github.com/zenjieli/FreeWubi/releases) 页面获取。
 
 1. 下载最新的 `freewubi-v*-linux-x86_64.tar.gz`
 2. 解压到用户主目录：
