@@ -132,6 +132,7 @@ const fcitx::Configuration* FreeWubiEngine::getConfig() const { return &config_;
 
 void FreeWubiEngine::syncConfigToEngine() {
   logic_.setPageSize(config_.pageSize.value());
+  logic_.setDecimalPointAfterDigit(config_.decimalPointAfterDigit.value());
 
   // Convert TriggerKey enum to keysym
   auto symForKey = [](TriggerKey key) -> uint32_t {

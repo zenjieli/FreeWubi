@@ -296,6 +296,15 @@ TEST_CASE_METHOD(EngineFixture, "Period resumes Chinese punctuation after a non-
   REQUIRE(output.commits.back() == "\xe3\x80\x82");  // 。
 }
 
+TEST_CASE_METHOD(EngineFixture, "Decimal point after digit can be disabled via config") {
+  logic.setDecimalPointAfterDigit(false);
+  feed(keys::_1);
+
+  bool consumed = feed(keys::Period);
+  REQUIRE(consumed);
+  REQUIRE(output.commits.back() == "\xe3\x80\x82");  // 。
+}
+
 TEST_CASE_METHOD(EngineFixture, "Smart quotes: double-quote alternates") {
   feed(keys::Quotedbl);
   REQUIRE(output.commits.back() == "\xe2\x80\x9c");  // "

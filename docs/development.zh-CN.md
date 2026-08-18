@@ -45,6 +45,17 @@ clang-format --dry-run --Werror $(git ls-files '*.cpp' '*.h')
 clang-format -i $(git ls-files '*.cpp' '*.h')
 ```
 
+`clang-format` 的报错行号可能不是你直接改动的那一行：它会对齐连续多行的行尾注释，
+在附近加一条更长的注释会改变相邻行所需的对齐方式。请对整个文件重新检查，而不只是
+diff 里的那几行。
+
+为了在提交到 CI 之前就发现问题，可以安装本仓库的 pre-commit hook（检查已 stage 的
+`.cpp`/`.h` 文件，格式不通过则阻止提交）：
+
+```bash
+ln -sf ../../scripts/pre-commit .git/hooks/pre-commit
+```
+
 ### 命名规范
 
 遵循 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)

@@ -12,6 +12,16 @@ FCITX_CONFIGURATION(CustomPhraseEntry, fcitx::Option<std::string> phrase{this, "
 FCITX_CONFIGURATION(
     FreeWubiConfig,
     fcitx::Option<int, fcitx::IntConstrain> pageSize{this, "PageSize", "Page Size", 5, fcitx::IntConstrain(1, 10)};
+    fcitx::Option<bool, fcitx::NoConstrain<bool>, fcitx::DefaultMarshaller<bool>, fcitx::ToolTipAnnotation>
+        decimalPointAfterDigit{this,
+                               "DecimalPointAfterDigit",
+                               "Decimal Point After Digit",
+                               true,
+                               {},
+                               {},
+                               fcitx::ToolTipAnnotation("Treat a period right after a digit as an ASCII "
+                                                        "decimal point (e.g. \"1.5\") instead of Chinese "
+                                                        "punctuation.")};
     fcitx::Option<std::vector<CustomPhraseEntry>, fcitx::NoConstrain<std::vector<CustomPhraseEntry>>,
                   fcitx::DefaultMarshaller<std::vector<CustomPhraseEntry>>, fcitx::ListDisplayOptionAnnotation>
         customPhrases{

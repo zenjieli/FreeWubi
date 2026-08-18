@@ -443,7 +443,7 @@ bool EngineLogic::processKey(const KeyInput& input, EngineState* state, IEngineO
 
   // Period right after a digit: keep it as an ASCII decimal point (e.g. "1.5")
   // instead of the Chinese full stop, even while composing Chinese text.
-  if (input.sym == keys::Period && prevCharWasDigit) {
+  if (input.sym == keys::Period && prevCharWasDigit && decimalPointAfterDigit_) {
     return false;
   }
 

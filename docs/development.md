@@ -45,6 +45,18 @@ clang-format --dry-run --Werror $(git ls-files '*.cpp' '*.h')
 clang-format -i $(git ls-files '*.cpp' '*.h')
 ```
 
+A `clang-format` violation can appear on a line you didn't directly edit: it aligns
+trailing comments across consecutive lines, so adding a longer comment nearby can
+shift the required alignment of its neighbors. Re-run the check on the whole file,
+not just the lines in your diff.
+
+To catch this before it reaches CI, install the repo's pre-commit hook (checks
+staged `.cpp`/`.h` files, blocks the commit on a violation):
+
+```bash
+ln -sf ../../scripts/pre-commit .git/hooks/pre-commit
+```
+
 ### Naming
 
 Follows [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)

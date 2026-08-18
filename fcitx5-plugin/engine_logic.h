@@ -22,6 +22,8 @@ class EngineLogic {
   void setSecondTempEnglishKey(uint32_t sym) { secondTempEnglishKey_ = sym; }
   void setTempPinyinKey(uint32_t sym) { tempPinyinKey_ = sym; }
 
+  void setDecimalPointAfterDigit(bool enabled) { decimalPointAfterDigit_ = enabled; }
+
   // Custom phrases: pairs of (code, phrase)
   void setCustomPhrases(const std::vector<std::pair<std::string, std::string>>& phrases);
 
@@ -49,6 +51,7 @@ class EngineLogic {
   uint32_t tempEnglishKey_ = keys::BracketLeft;
   uint32_t secondTempEnglishKey_ = keys::Slash;
   uint32_t tempPinyinKey_ = keys::BracketRight;
+  bool decimalPointAfterDigit_ = true;
   // code → list of custom phrases
   std::unordered_map<std::string, std::vector<std::string>> customPhrases_;
 
